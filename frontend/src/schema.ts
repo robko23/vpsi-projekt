@@ -1,13 +1,16 @@
+import 'dotenv/config'
 import { integer, sqliteTable, text, primaryKey } from "drizzle-orm/sqlite-core"
 import { createClient } from "@libsql/client"
 import { drizzle } from "drizzle-orm/libsql"
-import type { AdapterAccount } from "next-auth/adapters"
 
-const client = createClient({
-	url: "DATABASE_URL",
-	authToken: "DATABASE_AUTH_TOKEN",
-})
-export const db = drizzle(client)
+const dbUrl = process.env.DB_FILE_NAME
+if (dbUrl == undefined || dbUrl == null || dbUrl == '') {
+	throw Error("Invalid DB_FILE_NAME env. Please create `.env` file and specify DB_FILE_NAME=file:db.sqlite")
+}
+
+const client = createClient({ url: dbUrl });
+export const db = drizzle({ client });
+export const connection = db.$client
 
 export const users = sqliteTable("user", {
 	id: text("id")
@@ -19,13 +22,21 @@ export const users = sqliteTable("user", {
 	image: text("image"),
 })
 
+export const credentials = sqliteTable("credentials", {
+	userId: text("userId")
+		.notNull()
+		.references(() => users.id, { onDelete: "cascade" }),
+	passwordHash: text("passwordHash").notNull(),
+});
+
+
 export const accounts = sqliteTable(
 	"account",
 	{
 		userId: text("userId")
 			.notNull()
 			.references(() => users.id, { onDelete: "cascade" }),
-		type: text("type").$type<AdapterAccount>().notNull(),
+		type: text("type").notNull(),
 		provider: text("provider").notNull(),
 		providerAccountId: text("providerAccountId").notNull(),
 		refresh_token: text("refresh_token"),
@@ -41,7 +52,7 @@ export const accounts = sqliteTable(
 			columns: [account.provider, account.providerAccountId],
 		}),
 	})
-)
+);
 
 export const sessions = sqliteTable("session", {
 	sessionToken: text("sessionToken").primaryKey(),

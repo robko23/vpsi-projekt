@@ -3,6 +3,8 @@ import Credentials from "next-auth/providers/credentials"
 import { DrizzleAdapter } from "@auth/drizzle-adapter"
 import { signInSchema } from "./lib/zod"
 import { accounts, db, sessions, users, verificationTokens } from "./schema"
+import { hash, verify } from 'argon2'
+import { getUserFromDb } from "./db_query/user"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
 	adapter: DrizzleAdapter(db, {
@@ -20,23 +22,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 				password: {},
 			},
 			authorize: async (credentials) => {
-				let user = null
-
 				const { email, password } = await signInSchema.parseAsync(credentials)
 
-				// logic to salt and hash password
-				const pwHash = saltAndHashPassword(password)
-
-				// logic to verify if the user exists
-				user = await getUserFromDb(email, pwHash)
-
+				const user = await getUserFromDb(email)
 				if (!user) {
-					// No user found, so this is their first attempt to login
-					// Optionally, this is also the place you could do a user registration
-					throw new Error("Invalid credentials.")
+					throw new Error("Invalid username or password")
 				}
 
-				// return user object with their profile data
+				const success = await verify(user.passwordHash, password)
+				if (!success) {
+					throw new Error("Invalid username or password")
+				}
+
 				return user
 			},
 		})
