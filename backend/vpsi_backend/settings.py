@@ -39,6 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core.apps.CoreConfig',
+    'social.apps.SocialConfig',
+    'challenges.apps.ChallengesConfig',
+    'plans.apps.PlansConfig',
+    'nutrition.apps.NutritionConfig'
 ]
 
 MIDDLEWARE = [
@@ -125,4 +130,4 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = "home"
-LOGOUT_REDIRECT_URL = "home" 
+LOGOUT_REDIRECT_URL = "home"
