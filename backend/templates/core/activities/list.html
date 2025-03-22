@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load fmt_duration %}
+
+{% block title %}
+    {% trans 'Activity list' %}
+{% endblock %}
+
+{% block content %}
+    <h1>{% trans 'Activitiy list' %}</h1>
+
+    <p><a href="{% url 'create_activity' %}">{% trans 'Log a new activity' %}</a></p>
+    <p><a href="{% url 'home' %}">{% trans 'Back to homepage' %}</a></p>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    {% if activities|length == 0 %}
+        {% trans "You don't have any activity recorded yet, start by recording an activity" %}
+    {% else %}
+        <table>
+            <thead>
+            <tr>
+                <td>{% trans 'Created at' %}</td>
+                <td>{% trans 'Duration' %}</td>
+                <td>{% trans 'Sport name' %}</td>
+                <td>{% trans 'Calories burned' %}</td>
+                <td>{% trans 'Visibility' %}</td>
+                <td>{% trans 'Actions' %}</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for activity in activities %}
+                <tr>
+                    <td>{{ activity.created_at }}</td>
+                    <td>{{ activity.duration|duration }}</td>
+                    <td>{{ activity.sport.name }}</td>
+                    <td>{{ activity.calories_burned }}</td>
+                    <td>{{ activity.visibility|title }}</td>
+                    <td>
+                        <form id="activity-delete-{{ activity.id }}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="delete"/>
+                            <input type="hidden" name="id" value="{{ activity.id }}"/>
+                        </form>
+                        <button form="activity-delete-{{ activity.id }}"
+                                type="submit">{% trans 'Delete activity' %}</button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+{% endblock %}

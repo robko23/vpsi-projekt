@@ -1,0 +1,82 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-22 13:12+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: core/forms.py:20
+msgid "Must be logged in to save activity record"
+msgstr ""
+
+#: core/forms.py:38
+msgid "End time must be after start time."
+msgstr ""
+
+#: core/models.py:9
+msgid "Full name of the unit (eg. Meters)"
+msgstr ""
+
+#: core/models.py:10
+msgid "Short code of the unit (eg. m)"
+msgstr ""
+
+#: core/models.py:14
+msgid ""
+"Is this unit standard SI measurement unit? Example of SI unit is meter, "
+"while steps is not. SI measurement units will get automatic conversion based "
+"on SI spec (example: 1000 m -> 1 km)"
+msgstr ""
+
+#: core/models.py:23
+msgid "Name of the sport (eg. Running)"
+msgstr ""
+
+#: core/models.py:25
+msgid "Short code of the sport (eg. RUN)"
+msgstr ""
+
+#: core/models.py:29
+msgid "Unit that this sport is measured in. For running, this would be meters"
+msgstr ""
+
+#: core/models.py:35
+msgid ""
+"How many calories you burn per measurement unit in this sport. For example "
+"climbing is 300 calories per hour of climbing"
+msgstr ""
+
+#: core/models.py:48
+msgid "Private"
+msgstr ""
+
+#: core/models.py:49
+msgid "Friends"
+msgstr ""
+
+#: core/models.py:50
+msgid "Public"
+msgstr ""
+
+#: core/views.py:31
+msgid "Successfully deleted activity record."
+msgstr ""
+
+#: core/views.py:33
+msgid ""
+"Failed to delete activity record. (perhaps you don't have a permission for "
+"that or given activity does not exist?)"
+msgstr ""
