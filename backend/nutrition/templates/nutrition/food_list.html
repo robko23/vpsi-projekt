@@ -1,0 +1,43 @@
+{% extends "./base.html" %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
+    <h2 class="text-2xl font-bold mb-4">Moje záznamy jídel</h2>
+
+    <form method="GET" class="mb-4 flex gap-4">
+        <div>
+            <label for="date_from" class="block text-sm font-medium text-gray-700">Od:</label>
+            <input type="date" id="date_from" name="date_from" value="{{ request.GET.date_from }}" class="p-2 border rounded w-full">
+        </div>
+        <div>
+            <label for="date_to" class="block text-sm font-medium text-gray-700">Do:</label>
+            <input type="date" id="date_to" name="date_to" value="{{ request.GET.date_to }}" class="p-2 border rounded w-full">
+        </div>
+        <div class="self-end">
+            <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Filtrovat</button>
+        </div>
+    </form>
+
+    <div class="mx-auto bg-white shadow-md rounded-lg mb-4">
+        <p class="text-gray-600">Celkový počet kalorií: <strong>{{ total_calories }}</strong> kcal</p>
+    </div>
+    {% if records %}
+        <ul>
+            {% for record in records %}
+                <li class="p-4 border-b">
+                    <strong>{{ record.food.name }}</strong> - 
+                    {% if record.weight %}{{ record.weight }} g{% endif %}
+                    {% if record.servings %}{{ record.servings }} porcí{% endif %}
+                    <span class="text-gray-600">({{ record.calories_consumed }} kcal)</span>
+                    <form method="GET" action="{% url 'food_delete' record.id %}" class="inline">
+                        {% csrf_token %}
+                        <button class="text-red-500" type="submit" >Smazat</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-gray-600">Zatím nemáš žádné záznamy.</p>
+    {% endif %}
+</div>
+{% endblock %}

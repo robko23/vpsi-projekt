@@ -1,0 +1,14 @@
+{% extends "./base.html" %}
+
+{% block title %}Přidat nové jídlo{% endblock %}
+
+{% block content %}
+<div class="bg-white p-6 rounded-lg shadow-md w-full max-w-lg">
+    <h2 class="text-xl font-semibold mb-4">Přidat nové jídlo</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="mt-2 w-full bg-green-500 text-white py-2 rounded">Uložit</button>
+    </form>
+</div>
+{% endblock %}

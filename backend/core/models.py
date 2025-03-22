@@ -67,7 +67,6 @@ class ActivityRecord(models.Model):
 
     visibility = models.CharField(
         max_length=10,
-        choices=VisibilityChoices,
+        choices=VisibilityChoices.choices,  # ✅ Opraveno!
         default=VisibilityChoices.PRIVATE
     )
-    pass

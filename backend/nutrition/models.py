@@ -37,15 +37,17 @@ class FoodRecord(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     def save(self, *args, **kwargs):
-        """ Auto-calculate calories based on weight or servings """
         if self.weight:
+            self.weight = float(self.weight)  # 🛠️ Převedení na číslo
             self.calories_consumed = (self.weight / 100) * self.food.calories
         elif self.servings and not self.food.serving_size:
             raise InvalidFoodRecord("Food.servings can be specified only for foods that have serving_size")
         elif self.servings and self.food.serving_size:
-            # Example logic: 1 serving = 1 predefined portion size (e.g. "1 slice")
+            self.servings = float(self.servings)  # 🛠️ Převedení na číslo
             self.calories_consumed = self.servings * self.food.calories
         else:
-            raise InvalidFoodRecord("either FoodRecord.weight or FoodRecord.servings must be specified")
+            raise InvalidFoodRecord("Either FoodRecord.weight or FoodRecord.servings must be specified")
+
         super().save(*args, **kwargs)
+
     pass
