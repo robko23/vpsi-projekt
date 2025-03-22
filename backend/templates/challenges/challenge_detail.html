@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ challenge.title }}</h1>
+  <p><strong>Popis:</strong> {{ challenge.description }}</p>
+  <p><strong>Kategorie:</strong> {{ challenge.category }}</p>
+  <p><strong>Metoda měření:</strong> {{ challenge.metric }}</p>
+  <p><strong>Začátek:</strong> {{ challenge.start }}</p>
+  <p><strong>Konec:</strong> {{ challenge.end }}</p>
+  <p><strong>Vytvořil:</strong> {{ challenge.creator.username }}</p>
+  <p><strong>Vytvořeno:</strong> {{ challenge.created_at }}</p>
+  <a href="{% url 'add_user_result' %}?challenge_id={{ challenge.id }}" class="button">Vložit výsledek</a>
+  <a href="{% url 'challenge_list' %}">🔙 Zpět na seznam</a>
+{% endblock %}

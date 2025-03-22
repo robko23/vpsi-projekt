@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Seznam výzev</h2>
+  <table>
+    <tr>
+      <th>Název</th>
+      <th>Popis</th>
+      <th>Tvůrce</th>
+    </tr>
+    {% for challenge in challenges %}
+      <tr>
+        <td><a href="{% url 'challenge_detail' challenge.id %}">{{ challenge.title }}</a></td>
+        <td>{{ challenge.description }}</td>
+        <td>{{ challenge.creator.username }}</td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="3">Žádné výzvy k dispozici.</td>
+      </tr>
+    {% endfor %}
+  </table>
+
+  <button onclick="location.href='{% url 'create_challenge' %}'">Vytvořit novou výzvu</button>
+{% endblock %}
