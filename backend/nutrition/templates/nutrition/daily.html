@@ -1,0 +1,34 @@
+{% extends "./base.html" %}
+
+{% block title %}DailyIntake    {% endblock %}
+
+{% block content %}
+   
+    <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-lg">
+        <h2 class="text-xl font-semibold mb-4">Denní záznam přijmu potravin</h2>
+        <form method="POST" action="{% url 'food_record_create' %}">
+            {% csrf_token %}
+            <div id="food-entries">
+                <div class="food-entry mb-4 p-4 bg-gray-50 rounded-lg">
+                    <label class="block mb-2">Jídlo:</label>
+                    <select name="food[]" class="w-full p-2 border rounded">
+                        {% for food in foods %}
+                            <option value="{{ food.id }}">{{ food.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label class="block mt-2">Hmotnost (g):</label>
+                    <input type="number" name="weight[]" class="w-full p-2 border rounded">
+                    <label class="block mt-2">Porce:</label>
+                    <input type="number" name="servings[]" class="w-full p-2 border rounded">
+                </div>
+            </div>
+            <label>Nenašli jste jídlo? Přidejte nové</label>
+            <a href="{% url 'food_create' %}" class="mt-2 w-full bg-blue-500 text-white py-2 rounded block text-center">
+                Přidat nové jídlo
+            </a>
+            <button type="button" id="add-food" class="mt-2 w-full bg-blue-500 text-white py-2 rounded">Přidat další</button>
+            <button type="submit" class="mt-4 w-full bg-green-500 text-white py-2 rounded">Uložit záznam</button>
+        </form>
+    </div>
+
+{% endblock %}

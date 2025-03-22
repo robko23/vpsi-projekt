@@ -22,5 +22,9 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
     path('', include('main.urls')),
+<<<<<<< HEAD
     path('', include('core.urls'))
+=======
+    path('nutrition/', include('nutrition.urls'))
+>>>>>>> 1708aca (Aktualizace nutrition)
 ]
