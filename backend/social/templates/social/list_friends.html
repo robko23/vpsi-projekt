@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Moji přátelé</h1>
+  <ul>
+    {% for friend in friends %}
+      <li>
+        {{ friend.username }}
+        <form action="{% url 'remove_friend' friend.id %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit">Odebrat</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'index' %}">Zpět na úvod</a>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Příchozí žádosti na přátelství</h1>
+  <ul>
+    {% for req in friend_requests %}
+      <li>
+        {{ req.from_user.username }} 
+        <form action="{% url 'accept_friend_request' req.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit">Přijmout</button>
+        </form>
+        <form action="{% url 'reject_friend_request' req.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit">Odmítnout</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'index' %}">Zpět na úvod</a>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "./base.html" %}
+
+{% block title %}Social{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto mt-10 p-6 bg-white shadow-md rounded-lg text-center">
+    <h1 class="text-3xl font-bold mb-6">Profil</h1>
+    
+    <div class="container mx-auto grid grid-cols-1 gap-4">
+        <a href="{% url 'list_friends' %}" class="block w-full bg-blue-500 text-white py-3 rounded-lg text-lg font-semibold hover:bg-blue-600 transition">
+            Seznam přátel
+        </a>
+        <a href="{% url 'incoming_requests' %}" class="block w-full bg-green-500 text-white py-3 rounded-lg text-lg font-semibold hover:bg-green-600 transition">
+            Příchozí žádosti
+        </a>
+        <a href="{% url 'add_friends' %}" class="block mb-5 bg-green-500 w-full text-white py-3 rounded-lg text-lg font-semibold hover:bg-green-600 transition">
+            Přidání přítele
+            </a>
+    </div>
+</div>
+{% if user.is_authenticated %}
+    Ahoj {{ user.username }}!
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Log Out</button>
+    </form>
+{% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">Log In</a>
+{% endif %}
+{% endblock %}

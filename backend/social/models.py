@@ -17,7 +17,12 @@ class FriendRequest(models.Model):
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
-    pass
+
+    is_accepted = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.from_user.username} -> {self.to_user.username}"
 
 
 class Friendship(models.Model):

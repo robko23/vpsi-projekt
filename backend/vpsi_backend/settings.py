@@ -44,8 +44,6 @@ INSTALLED_APPS = [
     'challenges.apps.ChallengesConfig',
     'plans.apps.PlansConfig',
     'nutrition.apps.NutritionConfig',
-    'tailwind', 
-    'theme',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +55,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-TAILWIND_APP_NAME = "theme"
+
 ROOT_URLCONF = 'vpsi_backend.urls'
 
 TEMPLATES = [

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Social{% endblock %}</title>
+  {% load static %}
+  <link href="{% static 'css/dist/styles.css' %}" rel="stylesheet">
+</head>
+
+<body>
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+</body>
+</html>

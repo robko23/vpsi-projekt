@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Přidat přátele</h1>
+
+  <form method="get" action="{% url 'add_friends' %}">
+    <input type="text" name="search" placeholder="Zadejte username"
+           value="{{ search_query|default_if_none:'' }}">
+    <button type="submit">Hledat</button>
+  </form>
+
+  {% if search_query %}
+    <hr>
+    {% if possible_friends and possible_friends.exists %}
+      <ul>
+        {% for user in possible_friends %}
+          <li>
+            {{ user.username }}
+            <form action="{% url 'send_friend_request' user.id %}" method="post" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit">Poslat žádost o přátelství</button>
+            </form>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Nikdo neodpovídá hledání nebo už je s vámi v kontaktu.</p>
+    {% endif %}
+  {% endif %}
+  <a href="{% url 'index' %}">Zpět na úvod</a>
+{% endblock %}
