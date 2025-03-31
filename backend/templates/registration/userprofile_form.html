@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Editace profilu</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Uložit změny</button>
+    <a href="{% url 'home' %}" class="btn btn-secondary">Zpět</a>
+  </form>
+{% endblock %}
+
